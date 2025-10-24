@@ -1,0 +1,563 @@
+/* ======== 0. RESET & VARIABLE ======== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+:root {
+    /* Warna Tren (Dark Mode) */
+    --color-primary: #00A3FF; /* Biru cerah sebagai aksen */
+    --color-primary-light: #40c4ff;
+    --color-bg: #121212;      /* Latar belakang utama (Hitam pekat) */
+    --color-surface: #1E1E1E;  /* Latar belakang kartu (Abu-abu gelap) */
+    --color-text: #E0E0E0;      /* Teks utama (Putih pudar) */
+    --color-text-secondary: #AAAAAA; /* Teks abu-abu */
+    --color-border: #333333;
+    
+    /* Tipografi */
+    --font-main: 'Inter', sans-serif;
+    
+    /* Efek */
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.3);
+    --transition-fast: all 0.2s ease-in-out;
+    --transition-medium: all 0.3s ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Jarak saat scroll ke section */
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.7;
+}
+
+/* ======== 1. LAYOUT & UTILITAS ======== */
+.container {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-text);
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.3;
+    color: white; /* Lebih menonjol */
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.5rem; }
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+/* Garis bawah judul (hiasan) */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-primary);
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    margin-top: -2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* ======== 2. TOMBOL (BUTTON) ======== */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition-medium);
+    border: 2px solid transparent;
+}
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #111;
+}
+.btn-primary:hover {
+    background-color: var(--color-primary-light);
+    color: #000;
+    transform: translateY(-3px); /* Efek "hiperaktif" */
+    box-shadow: 0 10px 15px rgba(0, 163, 255, 0.2);
+}
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--color-border);
+    color: var(--color-text);
+}
+.btn-secondary:hover {
+    background-color: var(--color-surface);
+    border-color: var(--color-surface);
+    transform: translateY(-3px);
+}
+
+/* ======== 3. HEADER & NAVIGASI (Glassmorphism) ======== */
+.header-sticky {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    
+    /* Efek Glassmorphism (Tren) */
+    background-color: rgba(18, 18, 18, 0.8); /* Latar belakang transparan */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.header-sticky nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.nav-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: white;
+}
+.nav-logo:hover {
+    color: var(--color-primary-light);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu li a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+/* Efek garis bawah "hiperaktif" */
+.nav-menu li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width .3s;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.nav-menu li a:hover::after,
+.nav-menu li a.active::after { /* Efek aktif saat di-scroll */
+    width: 100%;
+}
+.nav-menu li a:hover,
+.nav-menu li a.active {
+    color: var(--color-text);
+}
+
+.nav-button {
+    background-color: var(--color-primary);
+    color: #111 !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 6px;
+}
+.nav-button:hover {
+    background-color: var(--color-primary-light);
+    color: #000 !important;
+}
+.nav-button::after {
+    display: none !important; /* Hilangkan garis bawah di tombol */
+}
+
+/* ======== 4. SECTION: HERO ======== */
+.hero-section {
+    min-height: calc(100vh - 80px); /* 100% tinggi layar dikurangi nav */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+.hero-subtitle {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background-color: rgba(0, 163, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.hero-text h1 {
+    margin-bottom: 1.5rem;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 50ch; /* Batasi lebar teks agar mudah dibaca */
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-image img {
+    border-radius: 50%; /* Foto bulat (profesional) */
+    border: 5px solid var(--color-surface);
+    box-shadow: var(--shadow-medium);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/* ======== 5. SECTION: PROYEK (Kartu Hiperaktif) ======== */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background-color: var(--color-surface);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-light);
+    
+    /* Efek "Hiperaktif" saat hover */
+    transition: var(--transition-medium);
+}
+
+.project-card:hover {
+    transform: translateY(-8px); /* Efek "mengambang" */
+    box-shadow: 0 15px 30px rgba(0, 163, 255, 0.1);
+    border-color: var(--color-primary);
+}
+
+.project-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05); /* Zoom gambar saat kartu di-hover */
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-category {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.project-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+.project-content p {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.project-tags span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    background-color: var(--color-bg);
+    color: var(--color-text-secondary);
+    padding: 0.3rem 0.7rem;
+    border-radius: 15px;
+    border: 1px solid var(--color-border);
+}
+
+.project-links a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-right: 1rem;
+}
+.project-links a:hover {
+    color: var(--color-primary-light);
+}
+.project-links a i {
+    margin-left: 0.3rem;
+}
+
+/* ======== 6. SECTION: KEMAMPUAN ======== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.skill-category {
+    background-color: var(--color-surface);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+}
+
+.skill-category h3 {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.75rem;
+}
+.skill-category h3 i {
+    margin-right: 0.75rem;
+    color: var(--color-primary);
+}
+
+.skill-category ul {
+    list-style: none;
+}
+.skill-category ul li {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 1.75rem;
+}
+/* Custom bullet "hiperaktif" */
+.skill-category ul li::before {
+    content: '\f00c'; /* Font Awesome check icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--color-primary);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 0.9rem;
+}
+
+/* ======== 7. SECTION: PENGALAMAN (ATS-Friendly) ======== */
+.experience-list {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    /* Garis timeline vertikal */
+    border-left: 3px solid var(--color-border);
+    padding-left: 2rem;
+}
+
+.experience-item {
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+/* Titik di timeline */
+.experience-item::before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    border: 3px solid var(--color-bg);
+    position: absolute;
+    left: -2.85rem;
+    top: 6px;
+}
+
+.experience-header {
+    margin-bottom: 0.5rem;
+}
+.experience-header h3 {
+    font-size: 1.3rem;
+    color: white;
+    display: inline;
+}
+.experience-header span {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-left: 0.5rem;
+}
+
+.experience-item p {
+    color: var(--color-text-secondary);
+}
+
+/* ======== 8. SECTION: KONTAK ======== */
+.contact-box {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: var(--color-surface);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-medium);
+}
+
+.contact-box h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+.contact-box p {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+}
+.contact-socials {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+.contact-socials a {
+    font-size: 2rem;
+    color: var(--color-text-secondary);
+    transition: var(--transition-medium);
+}
+.contact-socials a:hover {
+    color: var(--color-primary);
+    transform: translateY(-5px); /* Efek "hiperaktif" */
+}
+
+/* ======== 9. FOOTER ======== */
+footer {
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+    margin-top: 4rem;
+}
+footer p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+/* ======== 10. EFEK FADE-IN (Hiperaktif) ======== */
+.section-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.section-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ======== 11. RESPONSIVE (PENTING!) ======== */
+@media (max-width: 992px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 3rem;
+    }
+    .hero-text p {
+        margin: 0 auto 2.5rem auto;
+    }
+    .hero-image {
+        grid-row: 1; /* Pindahkan gambar ke atas di mobile */
+        margin-bottom: 2rem;
+    }
+    .hero-image img {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto;
+    }
+    .hero-cta {
+        justify-content: center;
+    }
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2rem; }
+
+    /* Sembunyikan menu desktop, tampilkan ikon hamburger (disederhanakan) */
+    .nav-menu {
+        /* (Disarankan) Implementasikan menu hamburger di sini */
+        /* Untuk kesederhanaan, kita sembunyikan saja beberapa item */
+        gap: 1rem;
+    }
+    .nav-menu li a {
+        font-size: 0.9rem;
+    }
+    .nav-menu li:not(:last-child) {
+        /* display: none; */ /* Cara cepat, tapi tidak ideal */
+    }
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}
